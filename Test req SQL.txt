@@ -1,0 +1,36 @@
+Trigger d'audit des livres (Book_Audit) :
+
+
+INSERT INTO Books (book_id, title, author_id, publication_date) VALUES (1, 'Le Petit Prince', 2, '1943-04-06');
+
+
+SELECT * FROM Book_Audit WHERE book_id = 1;
+
+
+Trigger de contrôle des opérations sur la table Authors :
+
+UPDATE Authors SET author_name = 'James Bond' WHERE author_id = 3;
+
+
+Trigger de capture de l'adresse IP (Audit_Log) :
+
+INSERT INTO Users (user_id, username) VALUES (1, 'Sami');
+
+
+Vérification de l'enregistrement correspondant dans la table Audit_Log :
+
+SELECT * FROM Audit_Log WHERE action = 'update' OR action = 'delete';
+
+
+Trigger de contrainte de dates d'emprunt et de retour (Borrowings) :
+
+	Requête d'insertion d'un nouvel emprunt avec des dates valides :
+
+
+INSERT INTO Borrowings (borrow_id, user_id, book_id, borrow_date, return_date) VALUES (1, 2, 3, '2023-06-12', '2023-06-19');
+
+	Tentative d'insertion d'un nouvel emprunt avec une date de retour antérieure à la date d'emprunt :
+
+INSERT INTO Borrowings (borrow_id, user_id, book_id, borrow_date, return_date) VALUES (2, 1, 4, '2023-06-20', '2023-06-15');
+
+message prévu : La date d'emprunt ne peut pas être postérieure à la date de retour.
